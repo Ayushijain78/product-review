@@ -1,0 +1,37 @@
+.product__container {
+  list-style: none;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: 100vh;
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+.product_image {
+  width: 50px;
+  border: 1px solid black;
+  display: inline-block;
+  border-radius: 30px;
+  object-fit: contain;
+  background-color: #f0f0f0;
+}
+.product__list{
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.review__container {
+  padding: 10px 20px;
+  border: 1px solid;
+  flex: 1;
+}
+.on {
+  color: gold;
+}
+.off {
+  color: #ddd;
+}

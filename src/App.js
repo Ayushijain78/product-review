@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
+import Products from "./components/Products";
+import ReviewForm from "./components/ReviewForm";
 
 function App() {
+  const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const getProducts = async () => {
+    const productList = await (
+      await fetch("https://dummyjson.com/products")
+    ).json();
+    setProducts(productList.products);
+  };
+
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
+  };
+  const handleReviewSubmit = (reviewData) => {
+    localStorage.setItem(`product_${reviewData.productId}_review`, JSON.stringify(reviewData));
+    alert("product review saved successfully");
+    setSelectedProduct(null);
+  };
+  
+  useEffect(() => {
+    getProducts();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <header>
+      <section className="container">
+        <Products products={products} onSelect={handleProductSelect} />
+        {selectedProduct && (
+          <ReviewForm product={selectedProduct} onSubmit={handleReviewSubmit} />
+        )}
+      </section>
+    </header>
   );
 }
 
